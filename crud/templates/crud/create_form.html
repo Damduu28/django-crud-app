@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="form__wrapper">
+        <div class="form__header crud_h">
+            <a href="" class="cancel__crud">Cancel</a>
+            <h2><span>Cr-</span>eate Crud</h2>
+        </div>
+        <div class="crud__images">
+            {% if btn == 'Update' %}
+                <img src="{{ crud.get_crud_image }}" alt="" class="update__img">
+                <span class="crud">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            {% endif %}
+            <img src="#" alt="" class="new__img">
+        </div>
+        <form action="" method="POST" autocomplete="off" enctype="multipart/form-data" data-crud-form>
+            {% csrf_token %}
+            <input type="hidden" name="color" class="color">
+            <div class="field__group image__field">
+                <label class="c__img" for="c__img">Select Image</label>
+                {{ form.image }}
+            </div>
+            <div class="field__group">
+                {{ form.title }}
+            </div>
+            <div class="field__group">
+                {{ form.price }}
+            </div>
+            <button class="btn f__btn">{{ btn }} Crud</button>
+        </form>
+    </div>
+</main>
+{% endblock %}
