@@ -21,8 +21,8 @@ class User(AbstractUser):
     email = models.EmailField(max_length=254, unique=True)
     avatar = models.ImageField(upload_to=avatar_upload_path, default="avatar.png", null=True)
     
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    # USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS = []
     
     def __str__(self):
         return self.name if self.name is None else self.username
