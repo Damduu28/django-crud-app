@@ -1,0 +1,37 @@
+{% load static %}
+
+<header>
+    <div class="container">
+        <h1 class="logo"><a href="{% url 'home' %}">Logo</a></h1>
+        <nav class="navbar">
+            <ul class="nav__items">
+                <li class="toggler close">
+                    <i class="fas fa-times"></i>
+                </li>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'crud' %}">Crud</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        {% if request.user.is_authenticated %}
+            <div class="dropdown" data-dropdown>
+                <img class="dropdown__button" src="{{ request.user.get_avatar_url }}" alt="" data-dropdown-btn>
+                <ul class="dropdown__content">
+                    <li class="user__name">
+                        <img src="{{ request.user.get_avatar_url }}" alt="">
+                        <span>{{ request.user.name }}</span>
+                    </li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </div>
+        {% else %}
+            <div class="session">
+                <a class="login__session" href="{% url 'login' %}">Login</a>
+            </div>
+        {% endif %}
+        <div class="toggler bar">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+</header>

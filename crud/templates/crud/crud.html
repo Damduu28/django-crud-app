@@ -1,0 +1,106 @@
+{% extends 'index.html' %}
+
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+<section class="crud__wrapper">
+    <div class="container">
+        <div class="new__filter__price">
+            <div class="new__filter">
+                <a href="{% url 'create-crud' %}" class="new__crud c__btns">
+                    New +
+                </a>
+                <span class="c__btns filter__btn">Add Filter</span>
+            </div>
+            <div class="total__price">
+                <span class="total__title">Total Price:</span>
+                <span class="t__price">${{ request.user.get_total_price }}</span>
+            </div>
+        </div>
+        <div class="entrie__search">
+            <div class="show__entries">
+                <div>
+                    <span>Show</span>
+                    <form action="" class="entry__form">
+                        <select class="show__entry" name="result" id="">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </form>
+                    <span>entries</span>
+                </div>
+            </div>
+
+            <form action="" method="POST">
+                <div class="field__group">
+                    <input type="search" name="search" id="" placeholder="Search entry...">
+                </div>
+            </form>
+        </div>
+        <div class="table__wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for crud in cruds %}
+                        <tr>
+                            <td class="check">
+                                <input class="crud__check" type="checkbox" name="" id="">
+                            </td>
+                            <td>
+                                <div class="name">
+                                    <span style="background-color: #{{ crud.color }};" class="name__letter">{{ crud.user.get_user_name|slice:':1' }}</span>
+                                    <span class="c__username">{{ crud.user.get_user_name }}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="email">{{ crud.user.email }}</span>
+                            </td>
+                            <td>
+                                <span class="title">{{ crud.title }}</span>
+                            </td>
+                            <td>
+                                <span class="price">${{ crud.price }}</span>
+                            </td>
+                            <td>
+                                <div class="image">
+                                    <img src="{{ crud.get_crud_image }}" alt="">
+                                </div>
+                            </td>
+                            <td>
+                                <span class="date">{{ crud.created|date:"j M, Y" }}</span>
+                            </td>
+                            <td>
+                                <div class="action">
+                                    <div>
+                                        <a href="{% url 'update-crud' crud.id %}" class="a__btn e__btn">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{% url 'delete-crud' crud.id %}" class="a__btn d__btn">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}
